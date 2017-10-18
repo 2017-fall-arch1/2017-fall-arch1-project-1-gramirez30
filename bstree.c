@@ -42,6 +42,20 @@ BSTree *addEmployee(BSTree *tree, char *name){
   return tree;
 }
 
+
+/* Returns the smallest value in a Treee */
+BSTree *minValue(BSTree *tree){
+  if(tree->leftTree == NULL) return tree;
+  return minValue(tree->leftTree);
+}
+
+/* Deletes smallest value from a Tree  */
+BSTree *deleteMin(BSTree *tree){
+  if(tree->leftTree == NULL) return tree->rightTree;
+  tree->leftTree = deleteMin(tree->leftTree);
+  return tree;
+}
+
 /* Removes an employee from the Tree */
 BSTree *removeEmployee(BSTree *tree, char *name){
   if(tree == NULL){
@@ -56,10 +70,17 @@ BSTree *removeEmployee(BSTree *tree, char *name){
     tree->rightTree = removeEmployee(tree->rightTree, name);
   }
   else{
-    free(tree);
-    tree == NULL;
+    /* Case that Tree only has one leaf(SubTree) */
+    if(tree->leftTree == NULL) return tree->rightTree;
+    if(tree->rightTree == NULL) return tree->leftTree;
+    
+    /* Case that Tree has two leaves(SubTrees) */
+    BSTree *tmp = (BSTree *)malloc(sizeof(BSTree));
+    tmp = tree;
+    tree = minValue(tree->rightTree);
+    tree->rightTree = deleteMin(tree->rightTree);
+    tree->leftTree = tmp->leftTree;
   }
-
   return tree;
 }
 

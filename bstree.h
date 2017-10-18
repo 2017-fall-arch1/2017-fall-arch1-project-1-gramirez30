@@ -13,6 +13,12 @@ BSTree *createSubTree(char *name);
 /* Adds an employee to the Tree */
 BSTree *addEmployee(BSTree *tree, char *name);
 
+/* Returns the smallest value in a Tree */
+BSTree *minValue(BSTree *tree);
+
+/* Deletes the smallest value in a Tree */
+BSTree *deleteMin(BSTree *tree);
+
 /* Removes an employee from the Tree */
 BSTree *removeEmployee(BSTree *tree, char *name);
 

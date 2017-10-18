@@ -35,7 +35,7 @@ BSTree *readEmployees(){
 void saveEmployees(BSTree *tree){
   /* Open file to write */
   FILE *fileptr;
-  fileptr = fopen("employees.txt","w");
+  fileptr = fopen("employees.txt","a");
     
   if(tree == NULL){
     fclose(fileptr);
@@ -43,7 +43,7 @@ void saveEmployees(BSTree *tree){
   }
   else{
     /* Save the elements in the tree to a file */
-    printf("%s\n", *tree->employeeName);
+    printf("%s\n", tree->employeeName);
     fprintf(fileptr, "%s\n", tree->employeeName);
     saveEmployees(tree->leftTree);
     saveEmployees(tree->rightTree);
@@ -79,8 +79,9 @@ int main(){
       root = addEmployee(root, employee);
     }
     else if(cmpRem == 0){
-      printf("\nEnter Employe to REMOVE");
+      printf("\nEnter Employe to REMOVE\n");
       scanf("%s", employee);
+      root = removeEmployee(root, employee);
     }
     else if(cmpLst == 0){
       printf("\nEMPLOYEES:\n\n");
@@ -97,6 +98,11 @@ int main(){
   }
 
   /* Save the employees and EXIT */
+  FILE *fptr;
+  fptr = fopen("employees.txt", "w");
+  fprintf(fptr, "%s", "");
+  fclose(fptr);
+  
   saveEmployees(root);
   printf("\n\nGOODBYE\n\n");
 
