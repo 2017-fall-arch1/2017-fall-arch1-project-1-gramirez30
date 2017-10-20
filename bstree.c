@@ -3,7 +3,10 @@
 #include <string.h>
 #include "bstree.h"
 
-/* Creates a Tree with the given Employee Name */
+/*
+ Reference for this file: Algorithms 4th Edition by R. Sedgewick and K. Wayne 
+
+ Creates a Tree with the given Employee Name */
 BSTree *createSubTree(char *name){
   /* Allocate memory for the new tree */
   BSTree *subTree = (BSTree *)malloc(sizeof(BSTree));
@@ -71,15 +74,15 @@ BSTree *removeEmployee(BSTree *tree, char *name){
   }
   else{
     /* Case that Tree only has one leaf(SubTree) */
-    if(tree->leftTree == NULL) return tree->rightTree;
     if(tree->rightTree == NULL) return tree->leftTree;
+    if(tree->leftTree == NULL) return tree->rightTree;
     
     /* Case that Tree has two leaves(SubTrees) */
     BSTree *tmp = (BSTree *)malloc(sizeof(BSTree));
     tmp = tree;
     tree = minValue(tree->rightTree);
     tree->rightTree = deleteMin(tree->rightTree);
-    tree->leftTree = tmp->leftTree;
+    tree->leftTree = tmp;
   }
   return tree;
 }
